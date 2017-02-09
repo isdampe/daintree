@@ -1,0 +1,57 @@
+class BrowserBuffer {
+
+	constructor(Core, Args) {
+		this.Core = Core;
+		this.Args = Args;
+		this.View = Args.View;
+		this.MainElement = null;
+		
+		//Ensure we have a URL to browse.
+		if (! this.Args.hasOwnProperty('url') ) {
+			this.Core.DebugLog('Cannot launch BrowserView: Missing url in Args');
+			return false;
+		}
+
+		this.Name = Args.url;
+
+		this.Launch(this.Args.url);
+
+	}
+
+	/**
+	 * Closes and destroys the browser view instance
+	 * @return {bool} True if successful, false if failure
+	 */
+	Close() {
+
+		//Delete the Iframe Element.
+		this.IframeElement.parentNode.removeChild(this.IframeElement);
+
+		return true;
+
+	}
+
+	Launch(Url) {
+
+		//BufferID
+		var BufferID = "Iframe-" + new Date().getTime();
+
+		//Create the Iframe
+		var IframeElement = document.createElement('iframe');
+		IframeElement.src = Url;
+		IframeElement.className = "BrowserView";
+		IframeElement.id = BufferID;
+
+		this.MainElement = IframeElement;
+
+		//Inject the Iframe into the view
+		this.Args.View.ViewMainElement.appendChild(IframeElement);
+
+	}
+
+	GetMainElement() {
+		return this.MainElement;
+	}
+
+
+}

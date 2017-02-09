@@ -36,13 +36,14 @@ class Tabs {
 			if (! this.Buffers.hasOwnProperty(Key) ) continue;
 			let SingleBuffer = this.Buffers[Key];
 			let TabElement = document.createElement('li');
+
 			TabElement.innerHTML = SingleBuffer.Name;
 
 			//Add hook.
-			TabElement.addEventListener("click", (e) => {
-				e.preventDefault();
-				_this.TabClick(SingleBuffer);
-			});
+				TabElement.addEventListener("click", (e) => {
+					e.preventDefault();
+					_this.TabClick(SingleBuffer);
+				});
 
 			//Add this tab to the store.
 			this.Tabs[this.Buffers[Key].ID] = {
@@ -51,7 +52,7 @@ class Tabs {
 			};
 
 			//Hide the tab "content" initially.
-			SingleBuffer.Element.classList.add('tab-inactive');
+			SingleBuffer.View.ViewMainElement.classList.add('tab-inactive');
 
 			this.TabsElementContainer.appendChild(TabElement);
 		}
@@ -81,9 +82,14 @@ class Tabs {
 			this.HideTab(this.CurrentTab);
 		}
 
+		//Add the "active" class to the tab element itself.
 		SingleTab.Element.classList.add('active');
-		SingleTab.SingleBuffer.Element.classList.remove('tab-inactive');
-		SingleTab.SingleBuffer.Element.classList.add('tab-active');
+
+		//Work on the buffers' actual main element now.
+		var BufferTabElement = SingleTab.SingleBuffer.GetMainElement();
+		BufferTabElement.classList.remove('tab-inactive');
+		BufferTabElement.classList.add('tab-active');
+
 		this.CurrentTab = SingleTab;
 
 	}
@@ -95,9 +101,13 @@ class Tabs {
 	 */
 	HideTab(SingleTab) {
 	
+		//Remove the "active" class from the tab element itself.
 		SingleTab.Element.classList.remove('active');
-		SingleTab.SingleBuffer.Element.classList.remove('tab-active');
-		SingleTab.SingleBuffer.Element.classList.add('tab-inactive');
+
+		//Work on the buffers' actual main element now.
+		var BufferTabElement = SingleTab.SingleBuffer.GetMainElement();
+		BufferTabElement.classList.remove('tab-active');
+		BufferTabElement.classList.add('tab-inactive');
 
 	}
 

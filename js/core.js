@@ -3,7 +3,8 @@ class Daintree {
 	constructor(Config) {
 		this.Config = Config;
 		this.Views = [];
-		this.ViewTypes = {};
+		this.BufferTypes = {};
+		this.Buffers = {};
 	}
 
 	/**
@@ -26,20 +27,20 @@ class Daintree {
 	}
 
 	/**
-	 * Registers a new view class
+	 * Registers a new buffer class
 	 * @param {string} Name - The name of the new class, used to reference the class type
-	 * @param {class} ViewClass - The new ViewClass to register
+	 * @param {class} BufferClass - The new BufferClass to register
 	 * @return {bool} True on success, false on error
 	 */
-	RegisterView(Name, ViewClass) {
+	RegisterBuffer(Name, BufferClass) {
 		
-		if ( this.ViewTypes.hasOwnProperty(Name) ) {
+		if ( this.BufferTypes.hasOwnProperty(Name) ) {
 			return false;
 		}
 
-		this.ViewTypes[Name] = ViewClass;
+		this.BufferTypes[Name] = BufferClass;
 
-		this.DebugLog('Registered new view type: ' + Name);
+		this.DebugLog('Registered new buffer type: ' + Name);
 
 		return true;
 
@@ -47,54 +48,22 @@ class Daintree {
 
 	/**
 	 * Creates a new instance of a view
-	 * @param {string} ViewType - The type of view to create
 	 * @param {object} Args - The object of arguments to pass to the new View class
 	 * @return {void}
 	 */
-	NewView(ViewType, Args) {
-
-		if ( typeof this.ViewTypes[ViewType] !== 'function' ) {
-			this.DebugLog('No view of type ' + ViewType + ' is registered with core.');
-			return false;
-		}
+	NewView(Args) {
 
 		if ( typeof Args === 'undefined' ) {
 			Args = {};
 		}
 
-		var ViewID = new Date().getTime();
-
-		//Create the new element entrypoint for it.
-		var ViewElementWrapper = document.createElement('div');
-		ViewElementWrapper.id = "ViewWrapper-" + ViewID;
-		ViewElementWrapper.className = "ViewWrapper ViewWrapper-" + ViewType;
-
-		//Create the main and meta element.
-		var ViewMainElement = document.createElement('div');
-		ViewMainElement.id = "ViewMain-" + ViewID;
-		ViewMainElement.className = "ViewMain ViewMain-" + ViewType;
-
-		var ViewMetaElement = document.createElement('div');
-		ViewMetaElement.id = "ViewMeta-" + ViewID;
-		ViewMetaElement.className = "ViewMeta ViewMeta-" + ViewType;
-
-		ViewElementWrapper.appendChild(ViewMetaElement);
-		ViewElementWrapper.appendChild(ViewMainElement);
-
-		//Inject the element into the DOM root.
-		this.GetElementBase().appendChild(ViewElementWrapper);
-
-		//Add our ViewElement to Args
-		Args.ViewElementWrapper = ViewElementWrapper;
-		Args.ViewMainElement = ViewMainElement;
-		Args.ViewMetaElement = ViewMetaElement;
-		Args.ViewID = ViewID;
-
 		//Create the new class instance
-		var NewView = new this.ViewTypes[ViewType](this, Args);
+		var NewView = new View(this, Args);
 
 		//Push the new class instance into our Views store.
 		this.Views.push(NewView);
+
+		return NewView;
 	
 	}
 
@@ -126,6 +95,16 @@ class Daintree {
 
 		//We have successfully closed and deleted our view instance now.
 		return true;
+
+	}
+
+	NewBuffer(BufferType, Args, View) {
+
+		Args.View = View;
+
+		//Create a new buffer instance.
+		var NewBuffer = new this.BufferTypes[BufferType](this, Args);
+		return NewBuffer;
 
 	}
 

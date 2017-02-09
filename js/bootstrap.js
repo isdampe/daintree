@@ -4,13 +4,18 @@
 		Debug: true,
 		ElementBase: document.getElementById('daintree')
 	}); 
-	Core.RegisterView('Browser', BrowserView);
+	Core.RegisterBuffer('Browser', BrowserBuffer);
 
-	Core.NewView('Browser', {
-		url: "https://www.evasivesoftware.com/"
+	var View = Core.NewView();
+	View.CreateBuffer('Browser', {url: "https://www.evasivesoftware.com/"});
+	View.CreateBuffer('Browser', {url: "https://www.3dvt.com.au/"});
+
+	var SecondView = Core.NewView();
+	SecondView.CreateBuffer('Browser', {
+		url: "http://www.cowes.info"
 	});
-Core.NewView('Browser', {
-		url: "http://www.3dvt.com.au/"
+	SecondView.CreateBuffer('Browser', {
+		url: "http://www.markinginc.co"
 	});
 
 	window.DainetreeCore = Core;
