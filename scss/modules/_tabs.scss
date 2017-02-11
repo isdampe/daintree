@@ -35,32 +35,51 @@ $tabActiveBackground: #4b4b4b;
   			overflow: hidden;
   			text-overflow: ellipsis;
 		}
-	}
-	li:first-of-type {
+
+		&:first-of-type {
 		margin-left: $tabSpacing;
+		}
+		&:before {
+			position: absolute;
+			top: 0;
+			left: -$tabSpacing;
+			display: block;
+			content: " ";
+			width: 0; 
+	  		height: 0; 
+	  		border-top: 33px solid transparent;
+	  		border-right: 15px solid $tabInactiveBackground; 
+		}
+		&:after {
+			position: absolute;
+			top: 0;
+			right: -15px;
+			display: block;
+			content: " ";
+			width: 0; 
+	  		height: 0; 
+	  		border-top: 33px solid transparent;
+	  		border-left: 15px solid $tabInactiveBackground; 
+		}
 	}
-	li:before {
-		position: absolute;
-		top: 0;
-		left: -$tabSpacing;
-		display: block;
-		content: " ";
-		width: 0; 
-  		height: 0; 
-  		border-top: 33px solid transparent;
-  		border-right: 15px solid $tabInactiveBackground; 
+
+	li.new-buffer {
+		width: 10px;
+		height: 20px;
+		padding: 0;
+		margin: 2px 0 0 10px;
+
+		&:before {
+	  		border-left: 10px solid transparent;  
+  			border-top: 20px solid $tabInactiveBackground;
+		}
+		&:after {
+	  		border-top: 20px solid transparent;
+	  		border-left: 10px solid $tabInactiveBackground; 
+	  		right: -10px;
+		}
 	}
-	li:after {
-		position: absolute;
-		top: 0;
-		right: -15px;
-		display: block;
-		content: " ";
-		width: 0; 
-  		height: 0; 
-  		border-top: 33px solid transparent;
-  		border-left: 15px solid $tabInactiveBackground; 
-	}
+	
 	li.active {
 		color: $tabActiveText;
 		background: $tabActiveBackground;

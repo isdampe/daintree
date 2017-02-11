@@ -102,6 +102,11 @@ class Daintree {
 
 		Args.View = View;
 
+		if (! this.BufferTypes.hasOwnProperty(BufferType) ) {
+			this.DebugLog('Buffer type ' + BufferType + ' is not registered with core.');
+			return false;
+		}
+
 		//Create a new buffer instance.
 		var NewBuffer = new this.BufferTypes[BufferType](this, Args);
 		return NewBuffer;

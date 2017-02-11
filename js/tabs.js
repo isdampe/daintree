@@ -8,6 +8,7 @@ class Tabs {
 		this.TabsID = new Date().getTime();
 		this.Tabs = {};
 		this.CurrentTab = false;
+		this.View = Args.View;
 
 		//Create the tab container.
 		this.TabsElementContainer = document.createElement('ul');
@@ -41,10 +42,10 @@ class Tabs {
 			TabTitle.innerText = SingleBuffer.Name;
 
 			//Add hook.
-				TabElement.addEventListener("mousedown", (e) => {
-					e.preventDefault();
-					_this.TabClick(SingleBuffer);
-				});
+			TabElement.addEventListener("mousedown", (e) => {
+				e.preventDefault();
+				_this.TabClick(SingleBuffer);
+			});
 
 			//Add this tab to the store.
 			this.Tabs[this.Buffers[Key].ID] = {
@@ -59,6 +60,18 @@ class Tabs {
 			TabElement.appendChild(TabTitle);
 			this.TabsElementContainer.appendChild(TabElement);
 		}
+
+		//Create the "new" tab button.
+		var NewBufferElement = document.createElement('li');
+		NewBufferElement.className = "new-buffer";
+
+		NewBufferElement.addEventListener("mousedown", (e) => {
+			e.preventDefault();
+			_this.NewTab();
+		});
+
+		//Inject the button into the container element.
+		this.TabsElementContainer.appendChild(NewBufferElement);
 	
 	}
 
@@ -72,6 +85,16 @@ class Tabs {
 		var SingleTab = this.Tabs[SingleBuffer.ID];
 		this.ActivateTab(SingleTab);
 	
+	}
+
+	/**
+	 * Handles the user clicking the new tab button
+	 * @return {void}
+	 */
+	NewTab(View) {
+
+		this.View.NewBuffer();
+
 	}
 
 	/**

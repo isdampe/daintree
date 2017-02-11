@@ -2,7 +2,9 @@
 
 	var Core = new Daintree({
 		Debug: true,
-		ElementBase: document.getElementById('daintree')
+		ElementBase: document.getElementById('daintree'),
+		//DefaultBufferType: 'Browser'
+		DefaultBufferType: 'Editor'
 	}); 
 	Core.RegisterBuffer('Browser', BrowserBuffer);
 

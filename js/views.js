@@ -35,6 +35,7 @@ class View {
 
 		//Create a tab layout.
 		this.Tabs = new Tabs(Core, {
+			View: this,
 			ContainerElement: this.ViewMetaElement,
 			Buffers: this.Buffers
 		});
@@ -44,6 +45,8 @@ class View {
 	CreateBuffer(BufferType, Args) {
 	
 		var NewBuffer = this.Core.NewBuffer(BufferType, Args, this);
+		if (! NewBuffer ) return false;
+
 		NewBuffer.ID = new Date().getTime();
 		this.Buffers.push(NewBuffer);
 
@@ -52,6 +55,16 @@ class View {
 
 		//Debug, activate tab?
 		this.Tabs.ActivateTabByBuffer(NewBuffer);
+
+	}
+
+	/**
+	 * Create a new buffer in this view.
+	 * @return {void}
+	 */
+	NewBuffer() {
+
+		this.CreateBuffer(this.Core.Config.DefaultBufferType, {});
 
 	}
 

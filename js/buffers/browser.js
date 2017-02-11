@@ -6,10 +6,9 @@ class BrowserBuffer {
 		this.View = Args.View;
 		this.MainElement = null;
 		
-		//Ensure we have a URL to browse.
+		//Ensure we have a URL to browse, otherwise use blank.html
 		if (! this.Args.hasOwnProperty('url') ) {
-			this.Core.DebugLog('Cannot launch BrowserView: Missing url in Args');
-			return false;
+			this.Args.url = "blank.html";
 		}
 
 		this.Name = Args.url;
