@@ -1,0 +1,89 @@
+$tabContainerBackground: #1c1c1c;
+$tabInactiveText: #ddd;
+$tabActiveText: #fff;
+$tabInactiveBackground: #2d2d2d;
+$tabActiveBackground: #4b4b4b;
+
+
+.TabsContainer {
+	display: flex;
+	width: 100%;
+	margin: 0;
+	height: $tabHeight;
+	overflow: hidden;
+	padding: $tabPaddingTop 0 0;
+	background: $tabContainerBackground;
+	color: $tabInactiveText;
+
+	* {
+		@include cursorNormal();
+		@include noTextSelection();
+	}
+
+	li {
+		display: block;
+		padding: 9px 18px;
+		margin: 0 $tabSpacing 0 0;
+		background: $tabInactiveBackground;
+		position: relative;
+		width: 190px;
+
+		span {
+			display: block;
+			width: 100%;
+			white-space: nowrap;
+  			overflow: hidden;
+  			text-overflow: ellipsis;
+		}
+	}
+	li:first-of-type {
+		margin-left: $tabSpacing;
+	}
+	li:before {
+		position: absolute;
+		top: 0;
+		left: -$tabSpacing;
+		display: block;
+		content: " ";
+		width: 0; 
+  		height: 0; 
+  		border-top: 33px solid transparent;
+  		border-right: 15px solid $tabInactiveBackground; 
+	}
+	li:after {
+		position: absolute;
+		top: 0;
+		right: -15px;
+		display: block;
+		content: " ";
+		width: 0; 
+  		height: 0; 
+  		border-top: 33px solid transparent;
+  		border-left: 15px solid $tabInactiveBackground; 
+	}
+	li.active {
+		color: $tabActiveText;
+		background: $tabActiveBackground;
+		z-index: 2;
+
+		&:before {
+			border-right: 15px solid $tabActiveBackground; 
+		}
+		&:after {
+			border-left: 15px solid $tabActiveBackground; 
+		}
+	}
+}
+
+.ViewMain {
+
+	//This is the actual view module.
+	.tab-active {
+		display: block;
+	}
+
+	.tab-inactive {
+		display: none;
+	}
+
+}

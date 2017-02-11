@@ -36,11 +36,12 @@ class Tabs {
 			if (! this.Buffers.hasOwnProperty(Key) ) continue;
 			let SingleBuffer = this.Buffers[Key];
 			let TabElement = document.createElement('li');
+			let TabTitle = document.createElement('span');
 
-			TabElement.innerHTML = SingleBuffer.Name;
+			TabTitle.innerText = SingleBuffer.Name;
 
 			//Add hook.
-				TabElement.addEventListener("click", (e) => {
+				TabElement.addEventListener("mousedown", (e) => {
 					e.preventDefault();
 					_this.TabClick(SingleBuffer);
 				});
@@ -48,12 +49,14 @@ class Tabs {
 			//Add this tab to the store.
 			this.Tabs[this.Buffers[Key].ID] = {
 				Element: TabElement,
-				SingleBuffer: SingleBuffer
+				SingleBuffer: SingleBuffer,
+				ElementTitle: TabTitle
 			};
 
 			//Hide the tab "content" initially.
 			SingleBuffer.View.ViewMainElement.classList.add('tab-inactive');
 
+			TabElement.appendChild(TabTitle);
 			this.TabsElementContainer.appendChild(TabElement);
 		}
 	

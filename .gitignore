@@ -2,3 +2,4 @@
 **.swo
 *.swp
 *.swo
+.sass-cache/*
