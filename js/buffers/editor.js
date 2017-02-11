@@ -61,8 +61,8 @@ class EditorBuffer {
 		//Create ace editor.
 		ace.require("ace/ext/language_tools");
 		this.Ace = ace.edit(this.BufferID);
-		this.Ace.setTheme("ace/theme/monokai");
-		this.Ace.getSession().setMode("ace/mode/php");
+		//this.Ace.setTheme("ace/theme/one_dark");
+		this.Ace.getSession().setMode("ace/mode/javascript");
 		this.Ace.setOptions(this.Core.Config.Ace);
 		this.FocusEditor();
 

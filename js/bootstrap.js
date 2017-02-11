@@ -23,7 +23,8 @@
 			tabSize: 2,
 			wrap: false,
 			enableBasicAutocompletion: true,
-			enableLiveAutocompletion: true
+			enableLiveAutocompletion: true,
+			theme: "ace/theme/one_dark"
 		}
 	}); 
 	Core.RegisterBuffer('Browser', BrowserBuffer);
