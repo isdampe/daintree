@@ -20,18 +20,35 @@ class EditorBuffer {
 	}
 
 	/**
-	 * Closes and destroys the browser view instance
+	 * Closes and destroys the editor view instance
 	 * @return {bool} True if successful, false if failure
 	 */
 	Close() {
 
 		//Delete Ace editor.
+		this.Ace.destroy();
+		this.MainElement.parentNode.removeChild(this.MainElement);
+		this.Ace = null;
 
 		return true;
 
 	}
 
-	Launch(Url) {
+	/**
+	 * Called when the buffer is activated from a tab press
+	 * @return {void}
+	 */
+	OnTabActivate() {
+		this.FocusEditor();
+	}
+
+	/**
+	 * Launches a new buffer for the specified uri
+	 * @return {void}
+	 */
+	Launch(Uri) {
+
+		var _this = this;
 
 		//Create Ace wrapper
 		var AceWrapperElement = document.createElement('div');
@@ -45,7 +62,12 @@ class EditorBuffer {
 		this.Ace = ace.edit(this.BufferID);
 		this.Ace.setTheme("ace/theme/monokai");
 		this.Ace.getSession().setMode("ace/mode/javascript");
+		this.FocusEditor();
 
+	}
+
+	FocusEditor() {
+		this.Ace.focus();
 	}
 
 	GetMainElement() {

@@ -116,6 +116,11 @@ class Tabs {
 		BufferTabElement.classList.remove('tab-inactive');
 		BufferTabElement.classList.add('tab-active');
 
+		//Try to call OnTabActivate();
+		if ( typeof SingleTab.SingleBuffer.OnTabActivate === 'function' ) {
+			SingleTab.SingleBuffer.OnTabActivate();
+		}
+
 		this.CurrentTab = SingleTab;
 
 	}
