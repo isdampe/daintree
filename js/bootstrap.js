@@ -7,15 +7,17 @@
 		DefaultBufferType: 'Editor'
 	}); 
 	Core.RegisterBuffer('Browser', BrowserBuffer);
+	Core.RegisterBuffer('Editor', EditorBuffer);
 
 	var View = Core.NewView();
-	View.CreateBuffer('Browser', {url: "https://www.evasivesoftware.com/"});
-	View.CreateBuffer('Browser', {url: "http://stkbfr.com/53/"});
+	View.CreateBuffer('Editor', {
+		uri: '/tmp/test.js',
+		type: 'lfs'
+	});
+	//View.CreateBuffer('Browser', {url: "https://www.evasivesoftware.com/"});
+	//View.CreateBuffer('Browser', {url: "http://stkbfr.com/53/"});
 
 	var SecondView = Core.NewView();
-	SecondView.CreateBuffer('Browser', {
-		url: "http://www.cowes.info"
-	});
 	SecondView.CreateBuffer('Browser', {
 		url: "https://www.evasivesoftware.com"
 	});
