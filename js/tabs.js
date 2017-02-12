@@ -10,6 +10,9 @@ class Tabs {
 		this.CurrentTab = false;
 		this.View = Args.View;
 
+		//Create our tab emitter.
+		this.Emitter = new Emitter();
+
 		//Create the tab container.
 		this.TabsElementContainer = document.createElement('ul');
 		this.TabsElementContainer.id = "TabsContainer-" + this.TabsID;
@@ -28,6 +31,8 @@ class Tabs {
 	Render() {
 
 		var _this = this;
+
+		this.Emitter.Emit('OnBeforeRender');
 
 		//First, reset the container.
 		//This could probably be optimised to remove only inactive buffers.
@@ -72,6 +77,8 @@ class Tabs {
 
 		//Inject the button into the container element.
 		this.TabsElementContainer.appendChild(NewBufferElement);
+
+		this.Emitter.Emit('OnAfterRender');
 	
 	}
 
@@ -116,10 +123,9 @@ class Tabs {
 		BufferTabElement.classList.remove('tab-inactive');
 		BufferTabElement.classList.add('tab-active');
 
-		//Try to call OnTabActivate();
-		if ( typeof SingleTab.SingleBuffer.OnTabActivate === 'function' ) {
-			SingleTab.SingleBuffer.OnTabActivate();
-		}
+		//Call global and then specified event
+		this.Emitter.Emit('OnTabActivate', SingleTab);
+		this.Emitter.Emit('OnTabActivate-' + SingleTab.SingleBuffer.BufferID, SingleTab);
 
 		this.CurrentTab = SingleTab;
 

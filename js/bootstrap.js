@@ -24,7 +24,8 @@
 			wrap: false,
 			enableBasicAutocompletion: true,
 			enableLiveAutocompletion: true,
-			theme: "ace/theme/one_dark"
+			//theme: "ace/theme/one_dark"
+			theme: "ace/theme/monokai"
 		}
 	}); 
 	Core.RegisterBuffer('Browser', BrowserBuffer);

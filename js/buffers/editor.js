@@ -1,6 +1,12 @@
 class EditorBuffer {
 
+	/**
+	 * EditorBuffer is a class for controlling the Ace code editor
+	 * @param {Daintree} Core - The Dainetree core reference
+	 * @param {object} Args - The arguments to pass in
+	 */
 	constructor(Core, Args) {
+
 		this.Core = Core;
 		this.Args = Args;
 		this.View = Args.View;
@@ -38,8 +44,10 @@ class EditorBuffer {
 	 * Called when the buffer is activated from a tab press
 	 * @return {void}
 	 */
-	OnTabActivate() {
+	OnTabActivate(SingleTab) {
+
 		this.FocusEditor();
+
 	}
 
 	/**
@@ -66,14 +74,31 @@ class EditorBuffer {
 		this.Ace.setOptions(this.Core.Config.Ace);
 		this.FocusEditor();
 
+		//Add event listener for OnTabActivate for _this_ editor instance
+		this.View.Tabs.Emitter.On('OnTabActivate-' + this.BufferID, (SingleTab) => {
+			_this.OnTabActivate(SingleTab);
+		});
+
 	}
 
+	/**
+	 * Sets focus on this instances Ace editor
+	 * @return {void}
+	 */
 	FocusEditor() {
+
 		this.Ace.focus();
+
 	}
 
+	/**
+	 * Returns the main DOM element
+	 * @return {object} The main DOM element for this buffer
+	 */
 	GetMainElement() {
+
 		return this.MainElement;
+		
 	}
 
 
