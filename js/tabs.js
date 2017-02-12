@@ -32,8 +32,6 @@ class Tabs {
 
 		var _this = this;
 
-		this.Emitter.Emit('OnBeforeRender');
-
 		//First, reset the container.
 		//This could probably be optimised to remove only inactive buffers.
 		this.TabsElementContainer.innerHTML = '';
@@ -78,8 +76,6 @@ class Tabs {
 		//Inject the button into the container element.
 		this.TabsElementContainer.appendChild(NewBufferElement);
 
-		this.Emitter.Emit('OnAfterRender');
-	
 	}
 
 	/**
