@@ -34,6 +34,8 @@
 	var View = Core.NewView();
 	View.CreateBuffer('Editor', {
 		uri: '/tmp/test.js',
+		dir: '/tmp',
+		name: 'test.js',
 		type: 'lfs'
 	});
 	//View.CreateBuffer('Browser', {url: "https://www.evasivesoftware.com/"});

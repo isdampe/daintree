@@ -6,37 +6,49 @@ class EditorBuffer {
 	 * @param {object} Args - The arguments to pass in
 	 */
 	constructor(Core, Args) {
-
 		this.Core = Core;
 		this.Args = Args;
 		this.View = Args.View;
 		this.MainElement = null;
 		this.Ace = null;
 		this.BufferID = "Editor-" + new Date().getTime();
+		this.HasChanged = false;
 		
 		//Ensure we have a URL to browse, otherwise use blank.html
 		if (! this.Args.hasOwnProperty('uri') ) {
 			this.Args.uri = "/dev/null";
+			this.Args.dir = "/dev/null";
+			this.Args.name = "untitled";
 		}
 
-		this.Name = Args.uri;
+		this.Name = Args.name;
 
 		this.Launch(this.Args.uri);
 
 	}
-
 	/**
 	 * Closes and destroys the editor view instance
 	 * @return {bool} True if successful, false if failure
 	 */
 	Close() {
 
-		//Delete Ace editor.
-		this.Ace.destroy();
-		this.MainElement.parentNode.removeChild(this.MainElement);
-		this.Ace = null;
+		if ( confirm('Are you sure you want to close this?') ) {
 
-		return true;
+			//Delete Ace editor.
+			this.Ace.destroy();
+			this.MainElement.parentNode.removeChild(this.MainElement);
+			this.Ace = null;
+
+			//Delete the buffer from the View.
+			this.View.DeleteBuffer( this );
+
+			return true;
+
+		} else {
+
+			return false;
+
+		}
 
 	}
 
@@ -98,7 +110,7 @@ class EditorBuffer {
 	GetMainElement() {
 
 		return this.MainElement;
-		
+
 	}
 
 

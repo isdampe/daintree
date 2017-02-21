@@ -3,8 +3,7 @@
 	<head>
 		<title></title>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="css/daintree.css">
-		<link rel="stylesheet" href="css/themes/default.css">
+		
 	</head>
 	<body>
 		<div id="daintree"></div>
@@ -17,5 +16,11 @@
 		<script src="js/buffers/browser.js"></script>
 		<script src="js/buffers/editor.js"></script>
 		<script src="js/bootstrap.js"></script>
+
+		<!-- To ensure we override ACE dom.importCssString, make sure
+		the ace styles and loaded late -->
+		<link rel="stylesheet" href="css/daintree.css">
+		<link rel="stylesheet" href="css/themes/default.css">
+
 	</body>
 </html>

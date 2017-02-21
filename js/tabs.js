@@ -41,6 +41,7 @@ class Tabs {
 			let SingleBuffer = this.Buffers[Key];
 			let TabElement = document.createElement('li');
 			let TabTitle = document.createElement('span');
+			let TabClose = document.createElement('button');
 
 			TabTitle.innerText = SingleBuffer.Name;
 
@@ -48,6 +49,13 @@ class Tabs {
 			TabElement.addEventListener("mousedown", (e) => {
 				e.preventDefault();
 				_this.TabClick(SingleBuffer);
+			});
+
+			//Add close hook.
+			TabClose.addEventListener("mousedown", (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				_this.TabClose(SingleBuffer);
 			});
 
 			//Add this tab to the store.
@@ -61,6 +69,7 @@ class Tabs {
 			SingleBuffer.View.ViewMainElement.classList.add('tab-inactive');
 
 			TabElement.appendChild(TabTitle);
+			TabElement.appendChild(TabClose);
 			this.TabsElementContainer.appendChild(TabElement);
 		}
 
@@ -75,6 +84,18 @@ class Tabs {
 
 		//Inject the button into the container element.
 		this.TabsElementContainer.appendChild(NewBufferElement);
+
+	}
+
+	/**
+	 * Attempts to close a tab
+	 * @param {object} SingleBuffer - The buffer object of the clicked tab
+	 * @return {void}
+	 */
+	TabClose(SingleBuffer) {
+
+		SingleBuffer.Close();
+
 
 	}
 
