@@ -12,7 +12,8 @@ class View {
 		this.Buffers = [];
 		this.BuffersIndex = {};
 
-		this.ViewID = new Date().getTime();
+		//Set the default ViewID.
+		this.ViewID = this.Core.GenerateRandomID(16);
 
 		//Create the new element entrypoint for it.
 		this.ViewElementWrapper = document.createElement('div');
@@ -54,7 +55,7 @@ class View {
 		var NewBuffer = this.Core.NewBuffer(BufferType, Args, this);
 		if (! NewBuffer ) return false;
 
-		NewBuffer.ID = new Date().getTime();
+		NewBuffer.ID = this.Core.GenerateRandomID(16);
 
 		this.BuffersIndex[NewBuffer.ID] = this.Buffers.length;
 		this.Buffers.push(NewBuffer);
@@ -74,6 +75,8 @@ class View {
 	 */
 	DeleteBuffer(Buffer) {
 
+		var CurrentIndex = this.BuffersIndex[Buffer.ID];
+
 		//Remove the buffer from the store.
 		this.Buffers.splice(this.BuffersIndex[Buffer.ID],1);
 		delete this.BuffersIndex[Buffer.ID];
@@ -84,8 +87,19 @@ class View {
 		//Update the tabs.
 		this.Tabs.Render();
 
-		//Auto focus the next buffer, if we have one.
+		CurrentIndex -= 1;
 
+		//Auto focus the next buffer, if we have one.
+		if ( CurrentIndex >= this.BuffersIndex.length ) CurrentIndex = this.BuffersIndex.length;
+		if ( CurrentIndex < 0 ) CurrentIndex = 0;
+		
+		if ( typeof this.Buffers[CurrentIndex] !== 'undefined' ) {
+			this.Tabs.ActivateTabByBuffer( this.Buffers[CurrentIndex] );
+		} else {
+			//There are no buffers left in the view.
+			//Should I automatically close the view?
+			this.Core.DebugLog('No other buffers available in view to auto-activate');
+		}
 
 	}
 

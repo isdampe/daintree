@@ -5,7 +5,7 @@ class Tabs {
 		this.Core = Core;
 		this.ContainerElement = Args.ContainerElement;
 		this.Buffers = Args.Buffers;
-		this.TabsID = new Date().getTime();
+		this.TabsID = this.Core.GenerateRandomID(16);
 		this.Tabs = {};
 		this.CurrentTab = false;
 		this.View = Args.View;
@@ -95,7 +95,6 @@ class Tabs {
 	TabClose(SingleBuffer) {
 
 		SingleBuffer.Close();
-
 
 	}
 

@@ -11,7 +11,7 @@ class EditorBuffer {
 		this.View = Args.View;
 		this.MainElement = null;
 		this.Ace = null;
-		this.BufferID = "Editor-" + new Date().getTime();
+		this.BufferID = "Editor-" + this.Core.GenerateRandomID(16);
 		this.HasChanged = false;
 		
 		//Ensure we have a URL to browse, otherwise use blank.html

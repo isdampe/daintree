@@ -9,12 +9,12 @@ class Daintree {
 
 	/**
 	 * Writes a message to console if debug is active
-	 * @param {string} message - The message to write to log
+	 * @param {string} Message - The message to write to log
 	 * @return {void}
 	 */
-	DebugLog(message) {
+	DebugLog(Message) {
 		if ( this.Config.Debug === true ) {
-			console.log(message);
+			console.log(Message);
 		}
 	}
 
@@ -24,6 +24,22 @@ class Daintree {
 	 */
 	GetElementBase() {
 		return this.Config.ElementBase;
+	}
+
+	/**
+	 * Generates a random identifier
+	 * Although this function is _crap_ cryptographically and in every other way
+	 * it should be good enough to prevent "collisions" for our intended purposes
+	 * @param {int} Len - The length of the random string to generate
+	 * @return {string} A random string of [Length] characters
+	 */
+	GenerateRandomID(Len) {
+		var RandomID = "";
+		var CharSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		for ( var i=0; i < Len; i++ ) {
+			RandomID += CharSet.charAt(Math.floor(Math.random() * CharSet.length));
+		}
+		return RandomID;
 	}
 
 	/**
@@ -98,6 +114,13 @@ class Daintree {
 
 	}
 
+	/**
+	 * Attempts to create and return a new Buffer by BufferType
+	 * @param {string} BufferType - The type of Buffer to create
+	 * @param {object} Args - The object of arguments to pass for creation
+	 * @param {object} View - The view instance to attach to
+	 * return {object} The new Buffer object
+	 */
 	NewBuffer(BufferType, Args, View) {
 
 		Args.View = View;

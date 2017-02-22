@@ -24,7 +24,10 @@ class BrowserBuffer {
 	Close() {
 
 		//Delete the Iframe Element.
-		this.IframeElement.parentNode.removeChild(this.IframeElement);
+		this.MainElement.parentNode.removeChild(this.MainElement);
+
+		//Delete the buffer from the view.
+		this.View.DeleteBuffer( this );
 
 		return true;
 
@@ -33,7 +36,7 @@ class BrowserBuffer {
 	Launch(Url) {
 
 		//BufferID
-		var BufferID = "Iframe-" + new Date().getTime();
+		var BufferID = "Iframe-" + this.Core.GenerateRandomID(16);
 
 		//Create the Iframe
 		var IframeElement = document.createElement('iframe');
