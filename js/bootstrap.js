@@ -31,6 +31,14 @@
 	Core.RegisterBuffer('Browser', BrowserBuffer);
 	Core.RegisterBuffer('Editor', EditorBuffer);
 
+	var FileTreeView = Core.NewView({
+		tabs: false,
+		class: 'FileTreeView'
+	});
+	FileTreeView.CreateBuffer('Browser', {
+		url: 'https://www.evasivesoftware.com'
+	});
+
 	var View = Core.NewView();
 	View.CreateBuffer('Editor', {
 		uri: '/tmp/test.js',
@@ -45,6 +53,8 @@
 	SecondView.CreateBuffer('Browser', {
 		url: "https://www.evasivesoftware.com"
 	});
+
+	Core.SetViewMode('cols');
 
 	window.DainetreeCore = Core;
 

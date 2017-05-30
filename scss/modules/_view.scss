@@ -14,3 +14,16 @@
 		top: $tabHeight;
 	}
 }
+.ViewWrapperNoTabs {
+	.ViewMain {
+		height: 100%;
+		top: 0;
+	}
+}
+
+.ViewMode-cols {
+	display: flex;
+	.ViewWrapper {
+		height: 100%;
+	}
+}

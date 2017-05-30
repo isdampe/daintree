@@ -11,6 +11,11 @@ class View {
 		this.Args = Args;
 		this.Buffers = [];
 		this.BuffersIndex = {};
+		this.hasTabs = true;
+
+		if ( this.Args.hasOwnProperty('tabs') && this.Args.tabs === false ) {
+			this.hasTabs = false;
+		}
 
 		//Set the default ViewID.
 		this.ViewID = this.Core.GenerateRandomID(16);
@@ -19,6 +24,13 @@ class View {
 		this.ViewElementWrapper = document.createElement('div');
 		this.ViewElementWrapper.id = "ViewWrapper-" + this.ViewID;
 		this.ViewElementWrapper.className = "ViewWrapper";
+
+		if (! this.hasTabs ) {
+			this.ViewElementWrapper.className = "ViewWrapper ViewWrapperNoTabs";
+		}
+		if ( this.Args.hasOwnProperty('class') ) {
+			this.ViewElementWrapper.className = this.ViewElementWrapper.className + " " + this.Args.class;
+		}
 
 		//Create the main and meta element.
 		this.ViewMainElement = document.createElement('div');
@@ -36,11 +48,13 @@ class View {
 		this.Core.GetElementBase().appendChild(this.ViewElementWrapper);
 
 		//Create a tab layout.
-		this.Tabs = new Tabs(Core, {
-			View: this,
-			ContainerElement: this.ViewMetaElement,
-			Buffers: this.Buffers
-		});
+		if ( this.hasTabs ) {
+			this.Tabs = new Tabs(Core, {
+				View: this,
+				ContainerElement: this.ViewMetaElement,
+				Buffers: this.Buffers
+			});
+		}
 
 	}
 
@@ -60,11 +74,16 @@ class View {
 		this.BuffersIndex[NewBuffer.ID] = this.Buffers.length;
 		this.Buffers.push(NewBuffer);
 
-		//Update the tab view
-		this.Tabs.Render();
 
-		//Debug, activate tab?
-		this.Tabs.ActivateTabByBuffer(NewBuffer);
+		if ( this.hasTabs ) {
+
+			//Update the tab view
+			this.Tabs.Render();
+
+			//Debug, activate tab?
+			this.Tabs.ActivateTabByBuffer(NewBuffer);
+
+		}
 
 	}
 
@@ -84,8 +103,10 @@ class View {
 		//Ensure we rebuild BufferIndex
 		this.RebuildIndex();
 
-		//Update the tabs.
-		this.Tabs.Render();
+		if ( this.hasTabs ) {
+			//Update the tabs.
+			this.Tabs.Render();
+		}
 
 		CurrentIndex -= 1;
 
@@ -94,7 +115,9 @@ class View {
 		if ( CurrentIndex < 0 ) CurrentIndex = 0;
 		
 		if ( typeof this.Buffers[CurrentIndex] !== 'undefined' ) {
-			this.Tabs.ActivateTabByBuffer( this.Buffers[CurrentIndex] );
+			if ( this.hasTabs ) {
+				this.Tabs.ActivateTabByBuffer( this.Buffers[CurrentIndex] );
+			}
 		} else {
 			//There are no buffers left in the view.
 			//Should I automatically close the view?

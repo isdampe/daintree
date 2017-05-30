@@ -115,6 +115,23 @@ class Daintree {
 	}
 
 	/**
+	 * Sets the current view mode of the core
+	 * @param {string} ViewMode - The mode of the view to use [default|cols|rows]
+	 * @return {void}
+	 */
+	SetViewMode(ViewMode) {
+
+		ViewMode = ViewMode.toLowerCase();
+
+		if ( ViewMode == 'default' || ViewMode == 'cols' || ViewMode == 'rows' ) {
+			this.Config.ElementBase.className = 'ViewMode-' + ViewMode;
+		} else {
+			this.DebugLog('The ViewMode specified was invalid');
+		}
+
+	}
+
+	/**
 	 * Attempts to create and return a new Buffer by BufferType
 	 * @param {string} BufferType - The type of Buffer to create
 	 * @param {object} Args - The object of arguments to pass for creation

@@ -4,6 +4,7 @@
 @import "modules/_browserview";
 @import "modules/_editorview";
 @import "modules/_autocomplete";
+@import "modules/_filetree";
 
 * {
 	-moz-box-sizing: border-box;
@@ -19,4 +20,12 @@ body {
 	margin: 0;
 	@include fontMonospace();
 	font-size: 7.5pt;
+}
+
+#daintree {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 }
