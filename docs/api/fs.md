@@ -14,6 +14,8 @@ strictly follow this guide and provide this structure.
 	1. writeFile
 	1. readDirTree
 	1. makeDir
+	1. [TODO] move
+	1. [TODO] copy
 
 ## JavaScript implementation details
 
