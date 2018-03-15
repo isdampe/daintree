@@ -65,8 +65,8 @@ Reads the contents of a directory. Must exclude '.' and '..'.
 Method name: readDir
 Type:        asynchronous
 Arguments:
-	path:    (string)   - If first character is not '/', must be relative.
-	cache:   (boolean)  - Forcefully deny any kind of application level caching on the returned results.
+    path:    (string)   - If first character is not '/', must be relative.
+    cache:   (boolean)  - Forcefully deny any kind of application level caching on the returned results.
 Return:      (array)    - An array of 'file' objects.
 Throws:      (error)    - On async rejection or error.
 ```
@@ -90,7 +90,7 @@ may be later added by `readFileBinary`.
 Method name:     readFile
 Type:            asynchronous
 Arguments:
-	filePath:    (string) - If first character is not '/', must be relative.
+    filePath:    (string) - If first character is not '/', must be relative.
 Return:          (mixed)  - Either a string or buffer of bytes.
 Throws:          (error)  - On async rejection or i/o error.
 ```
@@ -114,8 +114,8 @@ must default to utf8. File must be completely written, not appended.
 Method name:        writeFile
 Type:               asynchronous
 Arguments:
-	filePath:       (string)  - If first character is not '/', must be relative.
-	contentBuffer:  (string)  - The content buffer to write to the file.
+    filePath:       (string)  - If first character is not '/', must be relative.
+    contentBuffer:  (string)  - The content buffer to write to the file.
 Return:             (integer) - The size of the file in bytes, after writing.
 Throws:             (error)   - On async rejection or i/o error.
 ```
@@ -149,8 +149,8 @@ symbolic links.
 Method name: readDirTree
 Type:        asynchronous
 Arguments:
-	path:    (string)   - If first character is not '/', must be relative.
-	cache:   (boolean)  - Forcefully deny any kind of application level caching on the returned results.
+    path:    (string)   - If first character is not '/', must be relative.
+    cache:   (boolean)  - Forcefully deny any kind of application level caching on the returned results.
 Return:      (array)    - An array of 'file' objects.
 Throws:      (error)    - On async rejection or error.
 ```
@@ -174,10 +174,10 @@ symbolic links.
 Method name: makeDir
 Type:        asynchronous
 Arguments:
-	path:    (string)         - If first character is not '/', must be relative.
-	autoCreatePaths (boolean) - Set to true to auto-create non-existant parent paths.
-Return:      (string)         - A string value confirming the created path.
-Throws:      (error)          - On async rejection or error.
+    path:           (string)         - If first character is not '/', must be relative.
+    autoCreatePaths (boolean)        - Set to true to auto-create non-existant parent paths.
+Return:             (string)         - A string value confirming the created path.
+Throws:             (error)          - On async rejection or error.
 ```
 #### Call signature:
 
