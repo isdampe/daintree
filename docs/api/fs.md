@@ -94,3 +94,37 @@ try {
 	console.error(e);
 }
 ```
+
+### writeFile(filePath, contentBuffer, encoding="utf8") (async)
+
+Writes a given buffer to a given file path. If no encoding is specified, it 
+must default to utf8. File must be completely written, not appended.
+
+```txt
+Method name:        writeFile
+Type:               asynchronous
+Arguments:
+	filePath:       (string)  - If first character is not '/', must be relative.
+	contentBuffer:  (string)  - The content buffer to write to the file.
+Return:             (integer) - The size of the file in bytes, after writing.
+Throws:             (error)   - On async rejection or i/o error.
+```
+#### Call signature:
+
+```javascript
+try {
+	let writtenSize = dfs.writeFile('/tmp/test.c', '#include <stdio.h>');
+} catch (e) {
+	console.error('Some error occured.');
+	console.error(e);
+}
+
+// - OR - 
+
+try {
+	let writtenSize = dfs.writeFile('/tmp/test.c', '#include <stdio.h>', 'ascii');
+} catch (e) {
+	console.error('Some error occured.');
+	console.error(e);
+}
+```
