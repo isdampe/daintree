@@ -9,7 +9,7 @@ strictly follow this guide and provide this structure.
 
 1. [JavaScript implementation details](#javascript-implementation-details)
 1. [Required methods](#required-methods)
-	1. [readDir](#readdir-path,-cache=true---async)
+	1. [readDir](#readdir)
 
 ## JavaScript implementation details
 
