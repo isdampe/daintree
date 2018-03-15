@@ -9,7 +9,11 @@ strictly follow this guide and provide this structure.
 
 1. [JavaScript implementation details](#javascript-implementation-details)
 1. [Required methods](#required-methods)
-	1. [readDir](#readdir)
+	1. readDir
+	1. readFile
+	1. writeFile
+	1. readDirTree
+	1. makeDir
 
 ## JavaScript implementation details
 
@@ -70,7 +74,7 @@ Throws:      (error)    - On async rejection or error.
 
 ```javascript
 try {
-	let files = dfs.readDir("/tmp");
+	let files = await dfs.readDir("/tmp");
 } catch (e) {
 	console.error('Some error occured.');
 }
@@ -94,7 +98,7 @@ Throws:          (error)  - On async rejection or i/o error.
 
 ```javascript
 try {
-	let fileContents = dfs.readFile('/tmp/test.c');
+	let fileContents = await dfs.readFile('/tmp/test.c');
 } catch (e) {
 	console.error('Some error occured.');
 	console.error(e);
@@ -119,7 +123,7 @@ Throws:             (error)   - On async rejection or i/o error.
 
 ```javascript
 try {
-	let writtenSize = dfs.writeFile('/tmp/test.c', '#include <stdio.h>');
+	let writtenSize = await dfs.writeFile('/tmp/test.c', '#include <stdio.h>');
 } catch (e) {
 	console.error('Some error occured.');
 	console.error(e);
@@ -128,7 +132,7 @@ try {
 // - OR - 
 
 try {
-	let writtenSize = dfs.writeFile('/tmp/test.c', '#include <stdio.h>', 'ascii');
+	let writtenSize = await dfs.writeFile('/tmp/test.c', '#include <stdio.h>', 'ascii');
 } catch (e) {
 	console.error('Some error occured.');
 	console.error(e);
@@ -154,10 +158,34 @@ Throws:      (error)    - On async rejection or error.
 
 ```javascript
 try {
-	let fileTree = dfs.readDirTree("/tmp");
+	let fileTree = await dfs.readDirTree("/tmp");
 } catch (e) {
 	console.error('Some error occured.');
 }
 ```
 
+### makeDir(path, autoCreatePaths=false) (async)
+
+Creates a new directory at a given path. Must only auto-created non-existant
+parent path structures if specified by autoCreatePaths. Must work inside
+symbolic links.
+
+```txt
+Method name: makeDir
+Type:        asynchronous
+Arguments:
+	path:    (string)         - If first character is not '/', must be relative.
+	autoCreatePaths (boolean) - Set to true to auto-create non-existant parent paths.
+Return:      (string)         - A string value confirming the created path.
+Throws:      (error)          - On async rejection or error.
+```
+#### Call signature:
+
+```javascript
+try {
+	let newDir = await dfs.makeDir('/tmp/a/b', true);
+} catch (e) {
+	console.error('Some error occured.');
+}
+```
 
