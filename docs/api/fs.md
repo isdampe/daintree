@@ -5,6 +5,11 @@ Daintree implements a virtual file system abstraction, referred to as dfs.
 The core can be configured to use pluggable dfs implementations, providing they
 strictly follow this guide and provide this structure.
 
+## Contents
+
+1. [JavaScript implementation details](#javascript-implementation-details)
+1. [Required methods][#required-methods]
+
 ## JavaScript implementation details
 
 The pluggable dfs implementation should export a single `Class`, which is an
