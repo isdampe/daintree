@@ -128,3 +128,30 @@ try {
 	console.error(e);
 }
 ```
+
+### readDirTree(path, cache=true) (async)
+
+Reads the contents of a directory, and recursively adds all child folders
+to the generated list. Must exclude '.' and '..' in each directory. Must follow
+symbolic links.
+
+```txt
+Method name: readDirTree
+Type:        asynchronous
+Arguments:
+	path:    (string)   - If first character is not '/', must be relative.
+	cache:   (boolean)  - Forcefully deny any kind of application level caching on the returned results.
+Return:      (array)    - An array of 'file' objects.
+Throws:      (error)    - On async rejection or error.
+```
+#### Call signature:
+
+```javascript
+try {
+	let fileTree = dfs.readDirTree("/tmp");
+} catch (e) {
+	console.error('Some error occured.');
+}
+```
+
+
